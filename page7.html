@@ -1,0 +1,40 @@
+<!DOCTYPE html><html><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;overflow-x:hidden}
+body{min-height:100vh;min-height:100dvh;background:linear-gradient(180deg,#fff0f3 0%, #ffccd5 100%);color:#4a1a2a;font-family:'Poppins',sans-serif;display:flex;align-items:flex-start;justify-content:center;text-align:center;padding:0}
+.container{width:100%;max-width:400px;padding:20px 16px 30px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;min-height:100vh}
+h1{font-family:'Great Vibes',cursive;font-size:clamp(36px, 9vw, 52px);color:#d90429;line-height:1.1;margin:14px 0 8px;font-weight:normal;word-wrap:break-word}
+h2{font-family:'Great Vibes',cursive;font-size:clamp(28px, 7vw, 40px);color:#d90429;margin:10px 0;font-weight:normal}
+p{font-size:clamp(14px, 3.8vw, 17px);line-height:1.6;margin:8px 0;max-width:100%}
+.small{font-size:10px;opacity:0.6;letter-spacing:2px;text-transform:uppercase;margin:6px 0}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;margin:8px 5px;padding:12px 28px;background:#ff4d6d;color:white;border-radius:30px;text-decoration:none;font-weight:600;font-size:15px;box-shadow:0 6px 18px rgba(255,77,109,0.35);border:none;cursor:pointer;touch-action:manipulation}
+.btn:active{transform:scale(0.97)}
+.photos{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}
+.photos img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:14px;border:2.5px solid white;box-shadow:0 6px 14px rgba(0,0,0,0.12);display:block}
+.photos.single{grid-template-columns:1fr;max-width:280px;margin:18px auto}
+.envelope{font-size:clamp(70px, 18vw, 90px);cursor:pointer;line-height:1;filter:drop-shadow(0 6px 12px rgba(0,0,0,0.15))}
+.letter{width:100%;background:white;padding:20px 18px;border-radius:18px;box-shadow:0 10px 30px rgba(0,0,0,0.1);line-height:1.8;font-size:clamp(14px, 3.8vw, 16px);text-align:center;word-wrap:break-word}
+.falling{position:fixed;top:-60px;font-size:26px;animation:fall linear forwards;pointer-events:none;z-index:999}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg)}}
+.float-heart{position:fixed;bottom:-30px;font-size:20px;animation:floatUp 4s linear infinite;pointer-events:none;opacity:0.7}
+@keyframes floatUp{to{transform:translateY(-110vh)}}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px auto;max-width:340px;width:100%}
+.card{width:100%;aspect-ratio:3/4;perspective:800px;cursor:pointer}.card-inner{position:relative;width:100%;height:100%;transition:transform 0.5s;transform-style:preserve-3d}.card.flipped .card-inner{transform:rotateY(180deg)}.card-front,.card-back{position:absolute;width:100%;height:100%;backface-visibility:hidden;border-radius:12px;overflow:hidden;box-shadow:0 6px 14px rgba(0,0,0,0.12);border:2.5px solid white}.card-front{background:linear-gradient(135deg,#ff8fa3,#ff4d6d);display:flex;align-items:center;justify-content:center;font-size:28px;color:white}.card-back{transform:rotateY(180deg);background:white}.card-back img{width:100%;height:100%;object-fit:cover;display:block}.card.matched{opacity:0.55;pointer-events:none}
+.game-area{position:relative;width:100%;height:300px;background:white;border-radius:18px;overflow:hidden;margin:14px 0;box-shadow:0 8px 20px rgba(0,0,0,0.1)}
+.heart-target{position:absolute;font-size:30px;cursor:pointer;touch-action:manipulation}
+.the-end{font-family:'Great Vibes',cursive;font-size:clamp(60px, 18vw, 84px);color:#d90429;margin:10px 0;text-shadow:0 4px 20px rgba(217,4,41,0.25)}
+.nav{margin-top:18px;display:flex;flex-wrap:wrap;justify-content:center;gap:6px;width:100%}
+.museum-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%;margin:16px 0}
+.museum-grid img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:14px;border:2.5px solid white;box-shadow:0 6px 14px rgba(0,0,0,0.12)}
+.museum-grid img.wide{grid-column:span 2;aspect-ratio:16/10}
+</style>
+<title>Catch Game</title></head><body><div class='container'>
+<h1>Catch My Heart</h1><p class="small">Tap 15 Hearts Quickly!</p><p>Score: <b id="score">0</b>/15</p><div id="game" class="game-area"></div><p id="win" style="display:none;font-family:'Great Vibes';font-size:26px;color:#d90429">You Caught My Heart! ❤️</p><div class="nav"><a class="btn" href="page6.html">← Back</a><a class="btn" id="nextBtn" style="display:none" href="page8.html">Next →</a></div><script>
+let score=0,game=document.getElementById('game'),sEl=document.getElementById('score');
+function spawn(){if(score>=15)return;let h=document.createElement('div');h.textContent=['❤️','💖','💗','💓'][Math.floor(Math.random()*4)];h.className='heart-target';h.style.left=Math.random()*80+'%';h.style.top=Math.random()*80+'%';h.onclick=function(){score++;sEl.textContent=score;this.remove();spawn();if(score>=15){document.getElementById('win').style.display='block';document.getElementById('nextBtn').style.display='inline-flex';for(let i=0;i<40;i++){let c=document.createElement('div');c.textContent='💖';c.className='falling';c.style.left=Math.random()*100+'vw';document.body.appendChild(c);setTimeout(()=>c.remove(),3000);}}};game.appendChild(h);setTimeout(()=>{if(h.parentNode)h.remove();if(score<15)spawn();},1300);}for(let i=0;i<3;i++)spawn();
+</script>
+</div></body></html>
